@@ -11,6 +11,7 @@
 		54BD7B672A36029F00464EA5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BD7B662A36029F00464EA5 /* SceneDelegate.swift */; };
 		54BD7B6E2A36029F00464EA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54BD7B6D2A36029F00464EA5 /* Assets.xcassets */; };
 		54BD7B712A36029F00464EA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54BD7B6F2A36029F00464EA5 /* LaunchScreen.storyboard */; };
+		54BD7B7D2A36029F00464EA5 /* Modules in Frameworks */ = {isa = PBXBuildFile; productRef = 54BD7B7C2A36029F00464EA5 /* Modules */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54BD7B7D2A36029F00464EA5 /* Modules in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +42,7 @@
 				54BD7B7A2A36029F00464EA5 /* Modules */,
 				54BD7B632A36029F00464EA5 /* Lojinha */,
 				54BD7B622A36029F00464EA5 /* Products */,
+				54BD7B7B2A36029F00464EA5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,6 +82,13 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
+		54BD7B7B2A36029F00464EA5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -95,6 +105,9 @@
 			dependencies = (
 			);
 			name = Lojinha;
+			packageProductDependencies = (
+				54BD7B7C2A36029F00464EA5 /* Modules */,
+			);
 			productName = Lojinha;
 			productReference = 54BD7B612A36029F00464EA5 /* Lojinha.app */;
 			productType = "com.apple.product-type.application";
@@ -366,6 +379,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		54BD7B7C2A36029F00464EA5 /* Modules */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Modules;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 54BD7B592A36029F00464EA5 /* Project object */;
 }
