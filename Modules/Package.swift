@@ -9,11 +9,17 @@ let package = Package(
     products: [
         .library(
             name: "Modules",
-            targets: ["Network"]),
+            targets: ["Presentation"]),
     ],
     dependencies: [
     ],
     targets: [
+        .target(
+            name: "Presentation",
+            dependencies: ["Network","Domain"]),
+        .testTarget(
+            name: "PresentationTests",
+            dependencies: ["Presentation"]),
         
         .target(
             name: "Network",
