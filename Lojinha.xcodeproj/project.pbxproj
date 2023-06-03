@@ -20,6 +20,7 @@
 		54BD7B6D2A36029F00464EA5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		54BD7B702A36029F00464EA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		54BD7B722A36029F00464EA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		54BD7B7A2A36029F00464EA5 /* Modules */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Modules; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +37,7 @@
 		54BD7B582A36029F00464EA5 = {
 			isa = PBXGroup;
 			children = (
+				54BD7B7A2A36029F00464EA5 /* Modules */,
 				54BD7B632A36029F00464EA5 /* Lojinha */,
 				54BD7B622A36029F00464EA5 /* Products */,
 			);
