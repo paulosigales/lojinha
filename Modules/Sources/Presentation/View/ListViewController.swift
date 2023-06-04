@@ -86,12 +86,18 @@ extension ListViewController: ViewCode {
 
 extension ListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return viewModel.numberOfItemsInSection()
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueCell(withType: ProductCell.self, for: indexPath) as? ProductCell else {
+            return UICollectionViewCell()
+        }
         
-        return UICollectionViewCell()
+        let productViewModel = viewModel.productViewModelAt(indexPath.row)
+        cell.configure(with: productViewModel)
+        
+        return cell
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
