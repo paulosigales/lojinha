@@ -22,6 +22,10 @@ class ListViewModel {
         productList.count
     }
     
+    func productViewModelAt(_ index: Int) -> ProductViewModel {
+        return ProductViewModel(productList[index])
+    }
+    
     func fetchProductList() -> AnyPublisher<[Product], ServiceError> {
         return Future<[Product], ServiceError> { promise in
             self.service.fetch { result in
