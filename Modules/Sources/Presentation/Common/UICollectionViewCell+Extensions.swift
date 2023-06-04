@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  UICollectionViewCell+Extensions.swift
 //  
 //
 //  Created by Paulo Sigales on 03/06/23.

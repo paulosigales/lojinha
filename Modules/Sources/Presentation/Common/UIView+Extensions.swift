@@ -26,3 +26,15 @@ extension UIView {
         return self
     }
 }
+
+extension UIView {
+    func alpha(
+        value: CGFloat = 0.05,
+        corner: CGFloat = 15
+    ) -> Self {
+        self.backgroundColor = UIColor.black.withAlphaComponent(value)
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.layer.cornerRadius = corner
+        return self
+    }
+}
