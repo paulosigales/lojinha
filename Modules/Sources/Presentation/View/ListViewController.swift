@@ -6,17 +6,26 @@
 //
 
 import UIKit
+import Combine
 
 public class ListViewController: UIViewController {
     
+    private var viewModel: ListViewModel = ListViewModel()
+    private var cancellable: AnyCancellable?
+    
     private lazy var collectionView: UICollectionView = {
         return UICollectionView(dataSource: self, delegate: self, cell: UICollectionViewCell.self)
+    }()
+    
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        return UIActivityIndicatorView().defaultIndicator()
     }()
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         setupViewCode()
         setupNavigation()
+        fetchProductList()
     }
 }
 
@@ -26,6 +35,33 @@ extension ListViewController {
         title = "Lojinha"
         navigationController?.setAppearance()
         
+    }
+}
+
+extension ListViewController {
+    
+    private func fetchProductList() {
+        self.collectionView.isHidden = true
+        self.activityIndicator.startAnimating()
+        
+        cancellable = viewModel.fetchProductList()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                    case .finished:
+                        self?.collectionView.isHidden = false
+                        self?.activityIndicator.stopAnimating()
+                    case .failure(let error):
+                        self?.handleFetchError(error)
+                }
+            }, receiveValue: { [weak self] _ in
+                self?.collectionView.setContentOffset(.zero, animated: false)
+                self?.collectionView.reloadData()
+            })
+    }
+    
+    private func handleFetchError(_ error: Error) {
+        print("Error fetching products: \(error)")
     }
 }
 
