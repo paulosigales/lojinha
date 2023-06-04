@@ -12,11 +12,12 @@ let package = Package(
             targets: ["Presentation"]),
     ],
     dependencies: [
+        .package(url: "https://github.com/onevcat/Kingfisher.git", .upToNextMajor(from: "7.0.0"))
     ],
     targets: [
         .target(
             name: "Presentation",
-            dependencies: ["Network","Domain"]),
+            dependencies: ["Network","Domain","Kingfisher"]),
         .testTarget(
             name: "PresentationTests",
             dependencies: ["Presentation"]),
