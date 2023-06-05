@@ -35,6 +35,23 @@ extension ListViewController {
         title = "Lojinha"
         navigationController?.setAppearance()
         
+        self.setCartButton(with: 0)
+    }
+    
+    private func setCartButton(with itemCount: Int) {
+        let badgeText: String = itemCount > 0 ? "\(itemCount)" : "0"
+        let cartImage: CartImage = itemCount > 0 ? .cart : .cartEmpty
+
+        let cartButton = UIBarButtonItem(withBadgeText: badgeText,
+                                     cartImage: cartImage,
+                                     target: self,
+                                     action: #selector(goToCart))
+
+        navigationItem.rightBarButtonItem = cartButton
+    }
+    
+    @objc private func goToCart() {
+        
     }
 }
 
@@ -101,7 +118,9 @@ extension ListViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let productViewModel = viewModel.productViewModelAt(indexPath.row)
+        let productViewController = ProductViewController(viewModel: productViewModel)
+        self.present(productViewController, animated: true)
     }
 }
 
