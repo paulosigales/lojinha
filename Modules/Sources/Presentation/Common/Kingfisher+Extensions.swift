@@ -14,7 +14,7 @@ extension KingfisherManager {
             self.retrieveImage(with: url) { result in
                 switch result {
                     case .success(let value):
-                        imageView.image = value.image
+                        imageView.image = value.image.trim()
                         imageView.isHidden = false
                         errorImageView.isHidden = true
                     case .failure:
