@@ -14,7 +14,7 @@ public class ListViewController: UIViewController {
     private var cancellable: AnyCancellable?
     
     private lazy var collectionView: UICollectionView = {
-        return UICollectionView(dataSource: self, delegate: self, cell: UICollectionViewCell.self)
+        return UICollectionView(dataSource: self, delegate: self, cell: ProductCell.self)
     }()
     
     private lazy var activityIndicator: UIActivityIndicatorView = {
@@ -84,11 +84,15 @@ extension ListViewController {
 
 extension ListViewController: ViewCode {
     func buildHierarchy() {
+        view.addSubview(activityIndicator)
         view.addSubview(collectionView)
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
