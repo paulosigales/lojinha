@@ -12,6 +12,7 @@ public class ListViewController: UIViewController {
     
     private var viewModel: ListViewModel = ListViewModel()
     private var cancellable: AnyCancellable?
+    private var orderListSubscription: AnyCancellable?
     
     private lazy var collectionView: UICollectionView = {
         return UICollectionView(dataSource: self, delegate: self, cell: ProductCell.self)
@@ -35,7 +36,9 @@ extension ListViewController {
         title = "Lojinha"
         navigationController?.setAppearance()
         
-        self.setCartButton(with: 0)
+        orderListSubscription = CartViewModel.orderListSubject.sink { [weak self] orderList in
+            self?.setCartButton(with: orderList.count)
+        }
     }
     
     private func setCartButton(with itemCount: Int) {
@@ -51,7 +54,8 @@ extension ListViewController {
     }
     
     @objc private func goToCart() {
-        
+        let cartViewController = CartViewController()
+        self.present(cartViewController, animated: true)
     }
 }
 

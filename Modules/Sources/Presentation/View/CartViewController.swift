@@ -28,7 +28,7 @@ class CartViewController: UIViewController {
     }()
     
     private lazy var tableView: UITableView = {
-        return UITableView(dataSource: self, delegate: self, cell: OrderCell.self)
+        return UITableView(dataSource: self, delegate: self, cell: UITableViewCell.self)
     }()
     
     private lazy var cartBottomView: UIView = {
