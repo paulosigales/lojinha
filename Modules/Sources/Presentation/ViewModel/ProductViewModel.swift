@@ -46,7 +46,7 @@ struct ProductViewModel {
     }
     
     func addToCart(product:Product, size: Size, quantity: Int) {
-        
+        CartViewModel.add(product: product, size: size, quantity: quantity)
     }
     
     func getImage(imageView: UIImageView, errorImageView: UIView) {
