@@ -38,3 +38,35 @@ extension UIView {
         return self
     }
 }
+
+extension UIView {
+    func emptyCart() -> Self {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.backgroundColor = .customBackground
+        
+        let stackView = UIStackView(axis: .vertical, spacing: 10, distribution: .equalCentering, alignment: .center)
+        
+        let sizeConfig = UIImage.SymbolConfiguration(pointSize: 50)
+        let image = UIImage(systemName: "cart")?
+            .withConfiguration(sizeConfig)
+            .withTintColor(UIColor.customSecondary, renderingMode: .alwaysOriginal)
+        
+        let imageView = UIImageView(image: image)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let label = UILabel(text: "sem produtos no carrinho", fontSize: 16, textAlignment: .center, height: 30)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        stackView.addArrangedSubview(imageView)
+        stackView.addArrangedSubview(label)
+        
+        self.addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        ])
+        
+        return self
+    }
+}
