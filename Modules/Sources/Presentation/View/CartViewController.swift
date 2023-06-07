@@ -28,7 +28,7 @@ class CartViewController: UIViewController {
     }()
     
     private lazy var tableView: UITableView = {
-        return UITableView(dataSource: self, delegate: self, cell: UITableViewCell.self)
+        return UITableView(dataSource: self, delegate: self, cell: OrderCell.self)
     }()
     
     private lazy var cartBottomView: UIView = {
@@ -116,6 +116,16 @@ extension CartViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        return UITableViewCell()
+        guard let cell = tableView.dequeueCell(withType: OrderCell.self, for: indexPath) as? OrderCell else {
+            return UITableViewCell()
+        }
+        
+        let order = CartViewModel.orderAtIndex(indexPath.row)
+        let orderViewModel = OrderViewModel(order)
+        let productViewModel = ProductViewModel(order.product)
+        
+        cell.configure(with: orderViewModel, and: productViewModel)
+        
+        return cell
     }
 }
