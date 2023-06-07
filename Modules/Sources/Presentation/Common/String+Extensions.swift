@@ -14,3 +14,18 @@ extension String {
         return attributeString
     }
 }
+
+extension String {
+    static let numberFormatter = NumberFormatter()
+    
+    var currencyToDouble: Double {
+        let number = self.replacingOccurrences(of: "R$", with: "")
+        String.numberFormatter.decimalSeparator = ","
+        
+        if let result = String.numberFormatter.number(from: number) {
+            return result.doubleValue
+        }
+        
+        return 0
+    }
+}
