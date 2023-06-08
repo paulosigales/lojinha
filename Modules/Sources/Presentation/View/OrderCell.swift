@@ -76,6 +76,7 @@ extension OrderCell {
         
         sizeTag.setTitle(self.orderViewModel?.size.size, for: .selected)
         setQuantityLabel(with: self.orderViewModel?.quantity ?? 0)
+        priceLabel.text = self.orderViewModel?.priceTotalFormatted
     }
 }
 
@@ -86,6 +87,7 @@ extension OrderCell {
         }
         
         let quantityBy = sender.tag == 1 ? -1 : 1
+        self.orderViewModel?.updateQuantity(by: quantityBy)
     }
     
     private func setQuantityLabel(with quantity: Int) {
@@ -114,6 +116,8 @@ extension OrderCell {
               let size = size else {
             return
         }
+        
+        CartViewModel.removeOrder(withProduct: product, size: size)
     }
 }
 
