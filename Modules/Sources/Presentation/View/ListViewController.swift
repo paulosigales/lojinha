@@ -14,6 +14,20 @@ public class ListViewController: UIViewController {
     private var cancellable: AnyCancellable?
     private var orderListSubscription: AnyCancellable?
     
+    private lazy var filterView: UIView = {
+        return UIView().container(height: 40)
+    }()
+    
+    private lazy var onSaleFilterButton = {
+        return UIButton(text: "promo",
+                        fontSize: 16,
+                        width: 70,
+                        height: 26,
+                        isSelected: false,
+                        target: self,
+                        action: #selector(onSaleChanged))
+    }()
+    
     private lazy var collectionView: UICollectionView = {
         return UICollectionView(dataSource: self, delegate: self, cell: ProductCell.self)
     }()
@@ -26,7 +40,7 @@ public class ListViewController: UIViewController {
         super.viewDidLoad()
         setupViewCode()
         setupNavigation()
-        fetchProductList()
+        fetchProductList(onSale: false)
     }
 }
 
@@ -61,11 +75,11 @@ extension ListViewController {
 
 extension ListViewController {
     
-    private func fetchProductList() {
+    private func fetchProductList(onSale: Bool) {
         self.collectionView.isHidden = true
         self.activityIndicator.startAnimating()
         
-        cancellable = viewModel.fetchProductList()
+        cancellable = viewModel.fetchProductList(onSale: onSale)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
@@ -84,11 +98,19 @@ extension ListViewController {
     private func handleFetchError(_ error: Error) {
         print("Error fetching products: \(error)")
     }
+    
+    @objc private func onSaleChanged(sender: UIButton) {
+        let isSelected = !sender.isSelected
+        onSaleFilterButton.setSelected(isSelected)
+        fetchProductList(onSale: isSelected)
+    }
 }
 
 extension ListViewController: ViewCode {
     func buildHierarchy() {
         view.addSubview(activityIndicator)
+        view.addSubview(filterView)
+        filterView.addSubview(onSaleFilterButton)
         view.addSubview(collectionView)
     }
     
@@ -97,7 +119,14 @@ extension ListViewController: ViewCode {
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            filterView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            filterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            onSaleFilterButton.leadingAnchor.constraint(equalTo: filterView.leadingAnchor, constant: 10),
+            onSaleFilterButton.centerYAnchor.constraint(equalTo: filterView.centerYAnchor),
+            
+            collectionView.topAnchor.constraint(equalTo: filterView.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -158,4 +187,3 @@ extension ListViewController: UICollectionViewDelegateFlowLayout {
         return 0
     }
 }
-
