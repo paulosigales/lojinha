@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  ProductListServiceStub.swift
 //  
 //
 //  Created by Paulo Sigales on 09/06/23.
