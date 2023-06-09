@@ -40,6 +40,23 @@ class ListViewModel {
         }
         .eraseToAnyPublisher()
     }
+    
+    func fetchProductList(onSale: Bool) -> AnyPublisher<[Product], ServiceError> {
+        return Future<[Product], ServiceError> { promise in
+            self.service.fetch { result in
+                switch result {
+                    case .success(let productList):
+                        self.productList = onSale
+                        ? productList.products.filter { $0.onSale == onSale }
+                        : productList.products
+                        promise(.success(self.productList))
+                    case .failure(let error):
+                        promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
 }
 
 
