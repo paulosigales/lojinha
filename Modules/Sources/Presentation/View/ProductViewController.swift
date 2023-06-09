@@ -5,6 +5,13 @@
 //  Created by Paulo Sigales on 05/06/23.
 //
 
+//
+//  ProductViewController.swift
+//  Alelo1
+//
+//  Created by Paulo Sigales on 03/06/23.
+//
+
 import UIKit
 import Combine
 import Domain
@@ -112,6 +119,7 @@ extension ProductViewController {
         
         configureSizeTags()
         
+        subscribeOrderInCartSubject()
     }
     
     func configurePrice() {
@@ -144,6 +152,17 @@ extension ProductViewController {
 
 extension ProductViewController {
     
+    func subscribeOrderInCartSubject() {
+        cancellable = CartViewModel.orderInCartSubject.sink{ [weak self] inCart in
+            if let _ = self?.sizeSelected {
+                self?.addToCartButton.setEnabled(!inCart)
+                if inCart {
+                    self?.addToCartButton.setTitle("já no carrinho", for: .disabled)
+                }
+            }
+        }
+    }
+    
     @objc private func selectSize(sender:UIButton) {
         deselectAllSizeTags()
         
@@ -157,7 +176,9 @@ extension ProductViewController {
         addToCartButton.isHidden = false
         
         addToCartButton.setSelected(true)
-        addToCartButton.setEnabled(true)
+        addToCartButton.setEnabled(true) //1, mas no 2 remove
+        
+        CartViewModel.checkInCart(product: viewModel.product, size: self.sizeSelected!)
     }
     
     private func deselectAllSizeTags() {
