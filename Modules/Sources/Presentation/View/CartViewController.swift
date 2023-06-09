@@ -60,6 +60,9 @@ class CartViewController: UIViewController {
             }
         }.store(in: &cancellable)
         
+        CartViewModel.cartTotalSubject.sink { total in
+            self.totalPriceLabel.text = total.toFormattedCurrency()
+        }.store(in: &cancellable)
     }
 }
 
