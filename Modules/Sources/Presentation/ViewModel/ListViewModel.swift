@@ -26,21 +26,16 @@ class ListViewModel {
         return ProductViewModel(productList[index])
     }
     
-    func fetchProductList() -> AnyPublisher<[Product], ServiceError> {
-        return Future<[Product], ServiceError> { promise in
-            self.service.fetch { result in
-                switch result {
-                    case .success(let productList):
-                        self.productList = productList.products
-                        promise(.success(self.productList))
-                    case .failure(let error):
-                        promise(.failure(error))
-                }
-            }
-        }
-        .eraseToAnyPublisher()
-    }
-    
+    /**
+     Fetches the product list from the service.
+     
+     This method initiates the fetching of the product list from the `ProductListService`. It accepts an `onSale` parameter to specify whether to fetch only products on sale or all products. It returns a publisher that emits either the fetched product list or an error.
+     
+     - Parameters:
+        - onSale: A boolean value indicating whether to fetch only products on sale.
+     
+     - Returns: A publisher that emits an array of `Product` objects or an error.
+     */
     func fetchProductList(onSale: Bool) -> AnyPublisher<[Product], ServiceError> {
         return Future<[Product], ServiceError> { promise in
             self.service.fetch { result in

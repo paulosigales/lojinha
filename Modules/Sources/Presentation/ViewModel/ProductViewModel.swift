@@ -49,6 +49,19 @@ struct ProductViewModel {
         CartViewModel.add(product: product, size: size, quantity: quantity)
     }
     
+    /**
+     Retrieves and sets the image for the product using Kingfisher.
+     
+     The `getImage` method retrieves the image for the associated `product` using Kingfisher, a popular image loading and caching library. It takes two parameters: `imageView` and `errorImageView`, which represent the UIImageView and UIView elements used for displaying the image and showing an error placeholder, respectively.
+     
+     - Parameters:
+        - imageView: The UIImageView element used for displaying the product image.
+        - errorImageView: The UIView element used as a placeholder in case of image loading errors.
+     
+     This method uses KingfisherManager.shared to access the shared Kingfisher manager instance. It calls the `getImage` function provided by KingfisherManager.shared, passing the `product.image` as the image URL, `imageView` as the target UIImageView, and `errorImageView` as the placeholder UIView in case of errors.
+     
+     - Note: Kingfisher handles the asynchronous loading and caching of the image. The `getImage` method encapsulates the logic to retrieve and set the image for the product using Kingfisher.
+     */
     func getImage(imageView: UIImageView, errorImageView: UIView) {
         KingfisherManager.shared.getImage(image: self.product.image, imageView: imageView, errorImageView: errorImageView)
     }

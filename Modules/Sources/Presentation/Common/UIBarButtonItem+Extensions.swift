@@ -7,6 +7,24 @@
 
 import UIKit
 
+/**
+ An enumeration that represents different cart images.
+ 
+ The `CartImage` enum provides two cases: `.cart` and `.cartEmpty`, which represent different cart images. It conforms to the `CustomStringConvertible` protocol, allowing you to get a textual description of each case.
+ 
+ Usage:
+ ```
+ let cartImage = CartImage.cart
+ 
+ // Get the description of the cart image
+ let description = cartImage.description
+ 
+ // Use the description for display or further processing
+ ...
+ ```
+ 
+ - Note: The `CartImage` enum provides a computed property `description` that returns the corresponding image name for each case. The `.cart` case returns "cart.fill" and the `.cartEmpty` case returns "cart".
+ */
 enum CartImage: CustomStringConvertible {
     case cart
     case cartEmpty
@@ -20,6 +38,32 @@ enum CartImage: CustomStringConvertible {
         }
     }
 }
+
+/**
+ An extension to `UIBarButtonItem` that provides a convenience initializer for creating a bar button item with a badge text and cart image.
+ 
+ The `withBadgeText(_:cartImage:target:action:)` initializer creates a bar button item with a custom view consisting of a cart image and a badge label. It allows you to easily display a badge text on the cart image. You can customize the cart image, target, and action as needed.
+ 
+ - Parameters:
+    - badgeText: The text to display as a badge on the cart image.
+    - cartImage: The cart image to use for the bar button item. Defaults to `.cart`.
+    - target: The target object that receives the action message.
+    - action: The selector representing the action message to send to the target.
+    - Returns: A bar button item with a custom view consisting of a cart image and a badge label.
+ 
+ Usage:
+ ```
+ let cartButton = UIBarButtonItem(withBadgeText: "3",
+ cartImage: .cart,
+ target: self,
+ action: #selector(cartButtonTapped(_:)))
+ 
+ // Use the created bar button item in a navigation bar
+ navigationItem.rightBarButtonItem = cartButton
+ ```
+ 
+ - Note: The `withBadgeText(_:cartImage:target:action:)` initializer creates a custom view using a `UIButton` with a cart image and a `UILabel` for the badge. The badge label displays the specified badge text and has a circular shape with a background color of `.customSecondary`. The badge label is positioned at the top-right corner of the cart image.
+ */
 
 extension UIBarButtonItem {
     
@@ -62,12 +106,3 @@ extension UIBarButtonItem {
         self.init(customView: cartButton)
     }
 }
-
-
-
-
-
-
-
-
-

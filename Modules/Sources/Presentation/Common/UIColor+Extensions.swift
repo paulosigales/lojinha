@@ -7,6 +7,14 @@
 
 import UIKit
 
+/**
+ Extension for custom colors used in the application.
+ 
+ Usage:
+ ```
+ let color = UIColor.customPrimary
+ ```
+ */
 extension UIColor {
     static let customPrimary = UIColor(red: 7/255, green: 80/225, blue: 59/225, alpha: 1.0)
     static let customSecondary = UIColor(red: 255/255, green: 53/225, blue: 86/225, alpha: 1.0)

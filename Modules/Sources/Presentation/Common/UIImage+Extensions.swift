@@ -1,5 +1,29 @@
 import UIKit
 
+/**
+ A set of extensions to UIImage that provides methods for trimming and cropping images.
+ 
+ The `trim()` method trims the transparent or white borders around an image and returns a new UIImage instance with the trimmed content.
+ 
+ The `cropRect` computed property calculates the rectangle that bounds the non-transparent or non-white pixels in the image.
+ 
+ Usage:
+ ```
+ let originalImage = UIImage(named: "original_image")
+ 
+ // Trim the image and get the trimmed version
+ let trimmedImage = originalImage.trim()
+ 
+ // Get the crop rectangle of the image
+ let cropRect = originalImage.cropRect
+ 
+ // Perform further operations with the trimmed image or crop rectangle
+ ```
+ 
+ - Note: The `trim()` method uses the `cropRect` property to determine the region to be cropped. The `cropRect` property performs the actual calculation of the crop rectangle.
+ 
+ - Important: The provided extension assumes that the input image has an alpha channel. If the image doesn't have an alpha channel, the trimming behavior may not be as expected.
+  */
 extension UIImage {
     func trim() -> UIImage {
         let newRect = self.cropRect
